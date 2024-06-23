@@ -77,7 +77,9 @@ Reveal parseRevealString(std::string line) {
 std::vector<Reveal> getGameReveals(std::string line) {
   std::vector<Reveal> reveals;
   Reveal reveal;
-  std::vector<std::string> revealsString = split(line, ';');
+  std::string gameReveals = line;
+  trim(gameReveals);
+  std::vector<std::string> revealsString = split(gameReveals, ';');
   for (int i = 0; i < revealsString.size(); i++) {
     reveal = parseRevealString(revealsString[i]);
     reveals.push_back(reveal);
@@ -100,7 +102,6 @@ std::vector<Game> getAllGames() {
   std::string line;
   Game game;
   std::vector<Game> games;
-  std::vector<Reveal> reveals;
   while (std::getline(file, line)) {
     game = parseGame(line);
     games.push_back(game);
@@ -117,9 +118,11 @@ bool isGamePossible(Game game) {
   for (int i = 0; i < game.reveals.size(); i++) {
     rev = game.reveals[i];
     if (rev.red > maxRed || rev.blue > maxBlue || rev.green > maxGreen) {
+      std::cout << "Game number " << game.Id << " is false \n";
       return false;
     }
   }
+  std::cout << "Game number " << game.Id << " is true \n";
   return true;
 }
 
