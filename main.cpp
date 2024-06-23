@@ -8,9 +8,9 @@
 
 class Reveal {
 public:
-  int red;
-  int blue;
-  int green;
+  int red = 0;
+  int blue = 0;
+  int green = 0;
 };
 
 class Game {
@@ -117,12 +117,10 @@ bool isGamePossible(Game game) {
   Reveal rev;
   for (int i = 0; i < game.reveals.size(); i++) {
     rev = game.reveals[i];
-    if (rev.red > maxRed || rev.blue > maxBlue || rev.green > maxGreen) {
-      std::cout << "Game number " << game.Id << " is false \n";
+    if ((rev.red > maxRed) || (rev.blue > maxBlue) || (rev.green > maxGreen)) {
       return false;
     }
   }
-  std::cout << "Game number " << game.Id << " is true \n";
   return true;
 }
 
@@ -136,6 +134,6 @@ int main() {
       total += game.Id;
     }
   }
-  std::cout << total;
+  std::cout << total << "\n";
   return total;
 }
