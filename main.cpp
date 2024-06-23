@@ -124,16 +124,41 @@ bool isGamePossible(Game game) {
   return true;
 }
 
+int minCubePower(Game game) {
+  int minRed = 0;
+  int minBlue = 0;
+  int minGreen = 0;
+  Reveal rev;
+  for (int i = 0; i < game.reveals.size(); i++) {
+    rev = game.reveals[i];
+    if (rev.red > minRed) {
+      minRed = rev.red;
+    }
+    if (rev.blue > minBlue) {
+      minBlue = rev.blue;
+    }
+    if (rev.green > minGreen) {
+      minGreen = rev.green;
+    }
+  }
+  return (minRed * minBlue * minGreen);
+}
+
 int main() {
   std::vector games = getAllGames();
   Game game;
   int total = 0;
+  int powerTotal = 0;
   for (int i = 0; i < games.size(); i++) {
     game = games[i];
     if (isGamePossible(game)) {
       total += game.Id;
     }
+    powerTotal += minCubePower(game);
   }
-  std::cout << total << "\n";
+
+  std::cout << "The sum of the IDs of all possible games is " << total << "\n";
+  std::cout << "The power of the min cube set of each game is " << powerTotal
+            << "\n";
   return total;
 }
